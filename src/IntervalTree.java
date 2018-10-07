@@ -1,3 +1,4 @@
+import java.util.Collections;
 import java.util.List;
 
 public class IntervalTree {
@@ -11,6 +12,8 @@ public class IntervalTree {
      * @param intervals
      */
     public IntervalTree(List<Interval> intervals) {
+        Collections.sort(intervals);
+
         throw new UnsupportedOperationException("Nog te implementeren!");
     }
 

@@ -1,7 +1,11 @@
 public class Interval implements Comparable<Interval> {
+    int lowInclusive;
+    int highExclusive;
+
 
     public Interval(int lowInclusive, int highExclusive) {
-        throw new UnsupportedOperationException("Nog te implementeren!");
+        this.lowInclusive = lowInclusive;
+        this.highExclusive = highExclusive;
     }
 
     /**
@@ -9,7 +13,7 @@ public class Interval implements Comparable<Interval> {
      * @return
      */
     public int getLow() {
-        throw new UnsupportedOperationException("Nog te implementeren!");
+        return lowInclusive;
     }
 
     /**
@@ -17,7 +21,7 @@ public class Interval implements Comparable<Interval> {
      * @return
      */
     public int getHigh() {
-        throw new UnsupportedOperationException("Nog te implementeren!");
+        return highExclusive;
     }
 
     @Override
@@ -28,8 +32,13 @@ public class Interval implements Comparable<Interval> {
      * Returnd 1 als dit interval een hogere ondergrens heeft, of een gelijke ondergrens en een hogere bovengrens heeft dan Interval o
      */
     public int compareTo(Interval o) {
-        throw new UnsupportedOperationException("Nog te implementeren!");
-
+        if(this.lowInclusive < o.lowInclusive || (this.lowInclusive == o.lowInclusive && this.highExclusive < o.highExclusive)){
+            return -1;
+        }
+        if(this.lowInclusive > o.lowInclusive || (this.lowInclusive == o.lowInclusive && this.highExclusive > o.highExclusive)){
+            return 1;
+        }
+        else return 0;
     }
 
     /**
@@ -39,7 +48,23 @@ public class Interval implements Comparable<Interval> {
      * @return
      */
     public Interval calculateOverlap(Interval b) {
-        throw new UnsupportedOperationException("Nog te implementeren!");
+        int type = this.compareTo(b);
+        if(type == -1){
+            if(this.highExclusive > b.lowInclusive){
+                return new Interval(b.lowInclusive, this.highExclusive);
+            }
+            else return null;
+        }
+        if(type == 1){
+            if(this.lowInclusive < b.highExclusive){
+                return new Interval(this.lowInclusive, b.highExclusive);
+            }
+            else return null;
+        }
+        if(type == 0){
+            return new Interval(this.lowInclusive, this.highExclusive);
+        }
+        return null;
     }
 
     @Override
