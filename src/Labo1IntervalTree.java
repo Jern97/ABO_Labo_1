@@ -9,8 +9,8 @@ public class Labo1IntervalTree {
 
 
         // create 40 random intervals in range [0,100)
-        int nIntervals = 5;
-        int maxRange = 5;
+        int nIntervals = 40;
+        int maxRange = 100;
 
         System.out.println("Creating intervals:");
         List<Interval> intervals = new ArrayList<>(nIntervals);
