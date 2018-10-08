@@ -66,25 +66,26 @@ public class IntervalTree {
      * Opgave 3.3
      */
     public List<Interval> findOverlapping(int x) {
-        List<Interval> toReturn = recursiveFindOverlapping(new Interval(x,x), root, new ArrayList<Interval>());
+        List<Interval> toReturn = recursiveFindOverlapping(new Interval(x,x+1), root, new ArrayList<Interval>());
         Collections.sort(toReturn);
 
         return toReturn;
     }
 
     public List<Interval> recursiveFindOverlapping(Interval ab, Node parent, List<Interval> intervals){
-        //Terug naar boven als de parent null is of als het maximum van de subtree minder is dan x;
+        //Terug naar boven als de parent null is of als het maximum van de subtree minder is dan de low;
         if(parent == null) return intervals;
-        if(parent.getMax() < ab.getHigh()) return intervals;
+        if(parent.getMax() < ab.getLow()) return intervals;
 
-        //Verder zoeken in de subtree: altijd langs links, enkel langs rechts als de low van de parent kleiner of gelijk aan x is
+        //Verder zoeken in de subtree: altijd langs links, enkel langs rechts als de low van de parent kleiner of gelijk aan de high is
         recursiveFindOverlapping(ab, parent.getLeft(), intervals);
-        if(parent.getInterval().getLow() <= ab.getLow()){
+        if(parent.getInterval().getLow() <= ab.getHigh()){
             recursiveFindOverlapping(ab, parent.getRight(), intervals);
         }
 
-        //toevoegen aan interval lijst indien x tussen low en high ligt.
-        if(parent.getInterval().getLow() <= ab.getLow() && ab.getHigh() < parent.getInterval().getHigh()) {
+        //toevoegen aan interval lijst indien er wel degelijk overlap is;
+        Interval overlap = parent.getInterval().calculateOverlap(ab);
+        if(overlap != null){
             intervals.add(parent.getInterval());
         }
         return intervals;
