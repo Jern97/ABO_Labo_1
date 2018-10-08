@@ -66,7 +66,10 @@ public class IntervalTree {
      * Opgave 3.3
      */
     public List<Interval> findOverlapping(int x) {
-        return recursiveFindOverlapping(new Interval(x,x), root, new ArrayList<Interval>());
+        List<Interval> toReturn = recursiveFindOverlapping(new Interval(x,x), root, new ArrayList<Interval>());
+        Collections.sort(toReturn);
+
+        return toReturn;
     }
 
     public List<Interval> recursiveFindOverlapping(Interval ab, Node parent, List<Interval> intervals){
@@ -93,6 +96,9 @@ public class IntervalTree {
      */
 
     public List<Interval> findOverlapping(Interval ab) {
-        return recursiveFindOverlapping(ab, root, new ArrayList<Interval>());
+        List<Interval> toReturn = recursiveFindOverlapping(ab, root, new ArrayList<Interval>());
+        Collections.sort(toReturn);
+
+        return toReturn;
     }
 }
