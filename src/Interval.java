@@ -48,23 +48,12 @@ public class Interval implements Comparable<Interval> {
      * @return
      */
     public Interval calculateOverlap(Interval b) {
-        int type = this.compareTo(b);
-        if(type == -1){
-            if(this.high > b.low){
-                return new Interval(b.low, this.high);
-            }
-            else return null;
+        if(this.low > b.high || this.high < b.low){
+            return null;
         }
-        if(type == 1){
-            if(this.low < b.high){
-                return new Interval(this.low, b.high);
-            }
-            else return null;
+        else{
+            return new Interval(Math.max(this.low, b.low), Math.min(this.high, b.high));
         }
-        if(type == 0){
-            return new Interval(this.low, this.high);
-        }
-        return null;
     }
 
     @Override
